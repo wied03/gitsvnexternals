@@ -71,4 +71,15 @@ describe BWied::ExternalLineParser do
     @external.revision.should == "86"
     @external.pegRevision.should == "79"
   end
+
+  it "should ignore commented lines" do
+    # arrange
+    @line = "# ignore this stuff"
+
+    # act
+    instantiate
+
+    # assert
+    @external.should == nil
+  end
 end
