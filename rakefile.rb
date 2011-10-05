@@ -27,7 +27,7 @@ with("spec") do |testdir|
         s.files = FileList["#{src}/**/*.rb",
                            "#{testdir}/**/*.rb"]
         s.test_files = FileList["#{testdir}/**/*.rb"]
-        s.version = BW::Version.incrementandretrieve
+        s.version = BWied::Version.incrementandretrieve
         s.summary = "Adds SVN externals support for GIT SVN"
         s.description = s.summary
         s.author = "Brady Wied"

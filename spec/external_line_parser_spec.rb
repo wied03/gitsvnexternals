@@ -1,6 +1,7 @@
 require "base_spec"
+require "external_line_parser"
 
-describe "My behaviour" do
+describe BWied::ExternalLineParser do
 
   it "should do something" do
 
