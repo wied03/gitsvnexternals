@@ -7,6 +7,16 @@ describe BWied::ExternalLineParser do
     @external = @parser.external
   end
 
+  RSpec::Matchers.define :be_instantiated_as do |e|
+    match do |a|
+      a.is_a?(e)
+    end
+
+    failure_message_for_should do |a|
+      "Expected class #{e} but got #{a.class}"
+    end
+  end
+
   it "should work properly with a basic external" do
     # arrange
     @line = "/destrootPath/     http://www.some.host/path                            destSubDir
@@ -15,6 +25,7 @@ describe BWied::ExternalLineParser do
     instantiate
 
     # assert
+    @external.should be_instantiated_as BWied::SvnExternal
     @external.sourcePath.should == "http://www.some.host/path"
     @external.destPath.should == "/destrootPath/destSubDir"
   end
@@ -27,6 +38,7 @@ describe BWied::ExternalLineParser do
     instantiate
 
     # assert
+    @external.should be_instantiated_as BWied::SvnLocalExternal
     @external.sourcePath.should == "../EventManager/NexusRefDataModel"
     @external.destPath.should == "/NexusRefDataApp/NexusRefDataModel"
 
@@ -40,6 +52,7 @@ describe BWied::ExternalLineParser do
     instantiate
 
     # assert
+    @external.should be_instantiated_as BWied::SvnRevisionExternal
     @external.sourcePath.should == "https://somehost.com/path"
     @external.destPath.should == "/full/destPath/here"
     @external.revision.should == "67"
@@ -53,6 +66,7 @@ describe BWied::ExternalLineParser do
     instantiate
 
     # assert
+    @external.should be_instantiated_as BWied::SvnRevisionExternal
     @external.sourcePath.should == "https://somehost.com/path"
     @external.destPath.should == "/partDestPathHere/restHere"
     @external.revision.should == "86"
@@ -66,6 +80,7 @@ describe BWied::ExternalLineParser do
     instantiate
 
     # assert
+    @external.should be_instantiated_as BWied::SvnPeggedExternal
     @external.sourcePath.should == "https://somehost.com/path"
     @external.destPath.should ==  "/somePath/restOfPath"
     @external.revision.should == "86"
